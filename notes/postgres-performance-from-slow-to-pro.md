@@ -1,0 +1,69 @@
+## Postgres Performance: From Slow to Pro
+### by Elizabeth Christensen
+
+- [slides](https://speakerdeck.com/chrismay/html-ivating-your-django-app-with-alpine-htmx-and-streaming-html)
+- [poc repo](https://github.com/PyHAT-stack/web-async-patterns)
+- [website](https://everydaysuperpowers.dev/)
+- [mastodon](https://fosstodon.org/@_chrismay)
+
+---
+
+- Postgres is very stable, easy integration with Django
+- DB performance goals
+  - cost, speed, optimize
+  - maximize what you're getting out of the db
+- Roadmap
+  - data flow
+  - settings
+  - memory tuning
+  - CPU/IOPS (whats going on inside Postgres/how your app interacting with the db)
+  - connection usage
+  - query performance
+  - query fixes
+- if you're using a managed service (RDS, etc) you may have preconfigurations, but its good to know what they are
+- Data flow
+  - high level
+    - web server
+    - app layer
+    - db layer
+  - writing data goes through shared buffer into disk storage
+  - reading data will be in shared buffers, so need to go to disk storage
+- IOPS - every write will reach underlying disk
+  - you want to maximize what's in shared buffers, the more stuff you read from disk, the slower
+  - postgres stores when query comes in and if it read from cache or disk
+    - check slides for query to check cache hit ratio
+    - high 90s is good
+  - each connection (client backend) uses its own memory (work mem), default 4MB (too small for prod use case)
+    - spills to temp file
+    - check how many files generated to see if work mem is too small
+  - pgtune to check recommended settings for all this
+- CPU and system load
+  - `SELECT * FROM pg_stat_activity`
+  - you can set timeout for long running processes
+- IOPS
+  - indicator of when you don't have enough working memory or shared buffers
+  - i.e. postgres using disk too much for reads/writes
+  - don't want to see high IOPS all the time
+- Table bloat
+  - postgres keeps old data around and cleans up after since multiple queries happening simultaneously
+  - dead tuples
+  - 50% is ok; postgres will auto-vacuum
+- Posgtres versions
+  - postgres 12 EOL, you should be running >=13 
+- Connections
+  - query to count number of connections, what queries are using connections
+  - use connection pool to manage open connections
+  - pgBouncer, there's more
+- Query Hunting
+  - looking for issues within application
+    - app logs, postgres logs, queries
+      - django logging, debug toolbar, django silk
+  - what is fast and slow?
+    - ~1ms is normal
+    - bigger queries, 100-300ms
+    - more than 5000ms (5 seconds) is bad!
+  - postgres logs
+    - third party, APM tools, pdbadger
+    - you can tell postgres to log duration of operations
+    - logging locks and waits -- this query is slow because something before locked it
+    - pgstat statements
