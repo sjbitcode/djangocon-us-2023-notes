@@ -1,10 +1,11 @@
 ## HTML-ivating your Django web app's experience with HTMX, AlpineJS, and streaming HTML
 ### by Chris May
 
+- [talk](https://2023.djangocon.us/talks/html-ivating-your-django-web-app-s-experience-with-htmx-alpinejs-and-streaming-html/)
 - [slides](https://speakerdeck.com/chrismay/html-ivating-your-django-app-with-alpine-htmx-and-streaming-html)
 - [poc repo](https://github.com/PyHAT-stack/web-async-patterns)
 - [website](https://everydaysuperpowers.dev/)
-- [mastodon](https://fosstodon.org/@_chrismay)
+- [@_chrismay@fosstodon.org](https://fosstodon.org/@_chrismay)
 
 ---
 

@@ -1,11 +1,8 @@
 ## Postgres Performance: From Slow to Pro
 ### by Elizabeth Christensen
 
-- [slides](https://speakerdeck.com/chrismay/html-ivating-your-django-app-with-alpine-htmx-and-streaming-html)
-- [poc repo](https://github.com/PyHAT-stack/web-async-patterns)
-- [website](https://everydaysuperpowers.dev/)
-- [mastodon](https://fosstodon.org/@_chrismay)
-
+- [talk](https://2023.djangocon.us/talks/postgres-performance-from-slow-to-pro/)
+- [@sqlliz@fosstodon.org](https://fosstodon.org/@sqlliz)
 ---
 
 - Postgres is very stable, easy integration with Django
@@ -67,3 +64,52 @@
     - you can tell postgres to log duration of operations
     - logging locks and waits -- this query is slow because something before locked it
     - pgstat statements
+      - devs use this! turn on `pg_stat_statements`!
+      - see slides slides (~29:00 mark) on
+        - 10 longest running queries
+        - what queries are running often
+        - what queries by cpu usage
+      - explain plan
+        - how a scan is done, indexes used, cost
+      - explain analyze
+        - runs the query and gives you planning/execution time
+    - postgres parses, generate fastest path, make query plan, execute + return data for each query
+      - if you want to change plans, you should test on prod data
+    - explain - scan types
+      - sequential, bitmap heap, bitmap index, index
+      - join terms - nested loops, hash join, merge join
+    - auto explain - puts explain plans in postgres logs
+      - do this carefully on test data, takes up a lot of space and memory for calculations!
+    - query + operation enhancements
+      - indexing
+        - group blocks of data together so its easier to find
+        - b-tree: general purpose
+        - brin: timestamps or date ranges
+        - gist: spatial data/full text search
+        - gin: array or JSON
+        - primary key
+        - for web devs:
+          - multi-column index
+          - partial index - helps reduce size of index if you have a lot of nulls/unused records
+        - indexes stored on disk and can take time to create
+          - hypothetical indexing - ask postgres for explain plan on index that doesn't exist
+        - don't create too many indexes! every write needs to update index
+          - you can ask postgres what are unused indexes
+      - data modelling
+        - keep tables small
+        - updating too much data at a time
+        - login timestamps tied to contact info (don't have these in the same table!)
+          - separating data that shouldn't be together
+          - keep frequently updated data separate
+          - table bloat: every update, pg keeps dead row around -> data amplification
+      - n+1 queries
+        - queries that spin off another query
+        - one large query is more efficient for the db
+        - `select_related`, `prefetch_related`, `iterator()` will let you cache results
+- Last tips for performance
+  - stop runaway queries, set timeout
+  - use `pg_stat` statements, know what slowest queries are
+  - add indexes for frequent queries
+  - check cache hit ratio
+  - tune memory/memory connections (use pgbouncer)
+  - stay on top of your postgres versions!

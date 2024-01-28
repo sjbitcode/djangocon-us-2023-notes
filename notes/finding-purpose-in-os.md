@@ -1,0 +1,76 @@
+## Finding Purpose in Open Source Through Community Building
+### by Abigail Mesrenyame Dogbe
+
+- [talk](https://2023.djangocon.us/talks/keynote-finding-purpose-in-open-source-through-community-building/)
+- [github](https://github.com/mesrenyamedogbe)
+- [twitter](https://twitter.com/MesrenyameDogbe)
+
+---
+
+- Usual to meet an African who has 4 names of more
+  - what Ghanian name is based on day you were born!
+- Abigail childhood school - didn't like math, computer early on
+  - did CS class un undergrad! Didn't really like it at first
+- Lessons learned from parents
+  - Dad made sure every sibling did chores, spend quality time by teaching/doing a chore (ex. cleaning a car)
+  - pick up trait into other people to open source
+- Journey into Open Source (Django Girls)
+  - June 2017
+  - Coach was an organizer at Djangocon US 2023!
+  - Encouraged to be mentor at other Django Girls in Ghana (25+ events!)
+  - first female mentor at Django Girls
+  - first Pycon Africa in Ghana 2019, also first Django Girls Africa -- all female participants + coach!
+    - showed growth in Ghanian tech community!
+- Bringing Others into Open Source
+  - Joana (Pyladies Ghana)
+    - joined as an MC, background in biomedical engineering
+    - Abigail gave her tasks like writing blog posts, etc
+    - found passion in Data Science
+  - Vanessa (Django Girl, Pyladies Ghana)
+    - Communications specialist
+    - get people who are not coders to help reach goals
+  - Joseph (Python Ghana, Devops Engineer)
+  - Theresa (Django Girl, Backend Dev)
+  - Trying to find where you fit in, come out of their shell
+  - Aseda (Pyladies Ghana, Data Scientist)
+    - coordinating mentors, currently in US
+  - Rexford (Software Engineer, Photographer)
+- Challenges
+  - opportunities (esp for junior developers)
+    - what next? career development
+  - Paid open source opportunities
+    - all volunteering so far
+  - resources
+    - thanks to international open source communities
+  - travel & visas
+    - first talk was at Djangocon Europe 2019
+    - denied visa twice, a lot of work to apply!
+    - being in US as grad student opened a lot of doors
+    - for Africans, this is a challenge as OS contributor
+- Open Source "Boafo" (helper)
+  - Daniele
+  - Amanda (recommended the community for awards)
+  - Kojo (keynote speaker at Pycon Africa 2019, also at Djangocon Africa 2023!)
+  - Dawn (also on Djangocon Africa team!)
+  - Jay Miller (bringing more black Python devs together!)
+  - hard to do OS whilst having a job
+- How has OSS helped me?
+  - resiliance, public speaking! come out of comfort zone
+  - embrace discomfort
+  - personal growth (juggling OSS + work life)
+  - finding purpose
+    - bringing other people into OS, becoming OS program manager
+- Something about Abigail
+  - Django Girls (mentee -> mentor -> organizer)
+  - Python Ghana (Pyladies, PyData)
+  - Setting up other PyLadies Communities
+  - Pyladies Global
+  - Pycon Ghana (started 2018)
+  - Pycon Africa
+  - The PSF
+  - nonprofit organization - Everything Open Source
+    - beyond Python
+    - how to bring more people into coding/no-coding ventures
+  - Research
+  - Djangocon Africa
+  - We need people! How are you helping? How can you give back to your local communities?
