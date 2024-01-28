@@ -1,0 +1,100 @@
+## Swiss Army Django: Small Footprint ETL
+### by Noah Kantrowitz
+
+- [talk](https://2023.djangocon.us/talks/swiss-army-django-small-footprint-etl/)
+
+---
+
+- Side project, FarmRPG
+  - encourage you to do side projects!
+- What is ETL?
+  - extract, transform, load
+  - not exactly like web scrapers, but similar
+    - scrape responsibility!
+- Shape of things
+  - extractors
+    - scraper/importer cron jobs
+  - transforms
+    - parse HTML/JSON
+  - loaders
+    - Django ORM, DRF/Pydantic?
+  - extractors going to give you pile of bytes
+  - transform step is to turn into structured data
+    - parse
+    - move some data around, like SQL normalization, renaming things,
+    - deal with aggregations
+  - focus on small systems
+    - aggregate at load time, postgres is really fast!
+- Async + Django
+  - its good, use it for real things in prod!
+  - why?
+    - keep everything in one service, one running thing
+    - portability + easier to run on local dev env
+    - reduce number of places things can fail
+- Monoliths
+  - embrace the monolith
+- Writing async app
+  - set up is just like regular django project
+  - async server not included, use `uvicorn`
+- Background tasks
+  - celery/celery beat
+  - custom management commands/cron
+  - spawn async process
+  - In Django, use the `ready` hook in app config
+    - spawns the task in the background
+    - downsides:
+      - crashes can happen, not persisted, task is gone!
+      - model for failure
+        - ex. write task for sending emails
+          - write db table for emails pending, delete when they're sent
+  - Async ORM
+    - couple restrictions, but not too bad
+    - every function now prefixed with `a`, call it with `await`
+    - two big limitations
+      - transactions are not the same
+        - multiple queries interleaving
+        - currently everything in put in a single synchronous block, called in `sync_to_async` helper
+        - more async drivers will make things easier!
+      - queries can't overlap
+        - still run them concurrently, but internally its run one at a time, so no performance benefits
+  - Async HTTP
+    - httpx or aiohttp
+    - recommends httpx, very similar to requests library
+    - aiohttp is a little faster but doesn't support HTTP2
+    - both can fully overlap requests, so be careful
+- Examples from case study
+  - simple case
+    - call http, put it in db, repeat
+      - combine with looping call helper to run every x minutes/hr
+    - foreign key support
+      - if querying multiple endpoints and data is interlinked
+    - DRF serializers
+      - nested serializers to deserialize nested data
+      - `sync_to_async`
+    - Decorators
+      - more like celery task decorator
+      - `autodiscover_modules()`
+      - add things to global registry `_registry[]`
+    - Real-er cron
+      - Croniter
+      - in memory/db
+      - will tell you when things should next be run
+    - yes some of this duplicates celery, but it cuts down on celery infra setup
+  - Use case for ETLs
+    - History
+      - great use for ETL systems
+      - `django-pghistory` - no need to worry about signals, perf impacts 
+    - Incremental load
+      - get things since last we scraped
+    - Multi-stage transforms
+      - like DAG runners
+      - easy, write some async code!
+- Now what?
+  - you probably want to query data now that you've gathered it
+  - Graphql
+    - doesn't scale
+    - gets harder as data set gets larger. stuff can be cacheable though
+    - nice because you can run queries against nested data, expressed all in single query
+    - `strawberry`
+    - work really well with static site generators
+- Noooo! Talk was ended early!!
