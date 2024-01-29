@@ -5,4 +5,80 @@
 
 ---
 
-- 
+- some django apps to tackle tracking history/changes to models
+  - `django-reversion`
+  - `django-simple-history`
+  - `django-auditlog`
+  - `django-easy-audit`
+  - `django-models-logging`
+  - these apps track history in application code
+- main takeaways
+  - reliably track model changes using postgres triggers with `django-pghistory`
+  - learn other non-obvious design patterns related to change events
+  - [pg-history repo](github.com/Opus10/django-pghistory)
+- The problem isn't simple
+  - where/how to store changes?
+    - JSON? in a singular table?
+    - structured history model? keep models + history models in sync!
+    - depends on what you're trying to do with history...read or query?
+  - how to detect changes?
+    - signals
+      - some bulk changes don't fire signals
+      - race conditions
+    - override save/create methods
+      - hard to catch all references
+      - what about third party models?
+  - using pghistory
+    - decorate model with `@pghistory.track()`
+    - any change to model is tracked
+    - reverse relation called `.events`
+    - events stored in structured model, easy to query
+  - How does it work?
+    - new model created *dynamically* with same exact structure as original model
+    - updates to original model are reflected in event model
+    - Triggers installed and fires on db tables on inserts/updates
+    - uses another library, `django-pgtrigger` ([repo](https://github.com/Opus10/django-pgtrigger)) used to manage triggers
+    - your app requires no changes to track history reliably behind the scenes
+      - even raw SQL edits tracked!
+  - FAQ
+    - you can specify what fields are tracked
+    - customize when snapshots happen
+      - store event whenever field is greater than 4, etc
+    - underlying event model
+      - you can create event model manually
+    - prevent tampering with historical changes
+      - `append_only=True`
+    - default admin integration
+    - context-tracking
+      - say you want to track changes for an authenticated user?
+      - context table that can associate multiple tracked models that point to the same context
+      - context tracking adds no additional round-trip queries
+  - Design Patterns
+    - Default context tracking (`@pghistory.context(my_key="my_value")` or use as context manager)
+      - middleware to add user id/url for web request to associate with events
+      - context tracking within celery task
+      - stack contexts
+    - reverting to previous events
+      - ex. CMS, see all edits to blog posts
+      - fully capture inserts/updates
+      - base event model has a revert method to update existing instance
+        - create simple DRF endpoint to do reversion
+      - make sure you're tracking all fields if you want to revert
+    - Soft deleing models
+      - naive approach - boolean flag
+        - issues
+          - not excluding deleted objects when filtering on reverse relationships
+          - up to devs to remember to filter on deleted objects
+          - FKs won't be properly cascaded
+      - middle ground - pg-history sets up trigger to solve issue around cascading deletes
+        - trigger is at db level
+        - stores soft deleted objects in a separate table
+          - you can still hard delete primary table from cascading relationship
+    - Foreign Key to event models
+      - gather data at any historical point in time
+    - Application event logs
+      - ex. send out email to users when account <= 0?
+        - track model with conditional update event when account <= 0
+        - have simple table to track emails sent
+        - celery task to run at interval to ensure email sent out to overdraft accounts
+        - even if celery worker dies, history is persisted
