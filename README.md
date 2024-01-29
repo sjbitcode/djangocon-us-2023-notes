@@ -1,5 +1,6 @@
-## Djangocon US 2022 notes
+## Djangocon US 2023 notes
 
+### [2023.djangocon.us](https://2023.djangocon.us/)
 
 | Talk name  | Speaker | Djangocon page |
 | ------------- | ------------- | ------------- |
