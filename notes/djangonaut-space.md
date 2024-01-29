@@ -1,0 +1,51 @@
+## Navigating Django's Future: Djangonaut Space
+### by Dawn Wages & Rachell Calhoun
+
+- [talk](https://2023.djangocon.us/talks/navigating-djangos-future-djangonaut-space/)
+- [djangonaut.space](https://djangonaut.space/)
+
+---
+- Dawn & Rachel shared their pre-Django stories and how they got into Django!
+  - Rachel - Python user group, Django Girls Seoul, Toptal Scholarship
+  - Dawn - started in 2016, spoke at Djangocon, more involved in Djangocons
+  - inclusivity, help people break their own boundaries
+- Djangonaut space pre-flight
+  - relied on community, like Google Summer of Code
+  - hot take needed a mentorship for new Django Core devs
+  - historically excluded groups of people, active approach of inclusion!
+  - make the space and invite them! active is more effective than passive
+- Successful first flight!
+  - 3 months
+  - 4 PRs merged!
+  - 154 review comments
+  - make space for people who have lives, just like open source!
+  - 80% feel comfortable contributing to Django, 100% feel comfortable participating in Django
+  - not just about code! alot of contributors contributed in other ways than PRs
+- Sky Chart
+  - accountability
+  - connection
+  - sponsorship
+  - inclusivity
+- The Flight Plan
+  - Guest speakers
+    - Mariusz Felisiak (Django Ticketing)
+    - Natalia Bidart (Contributing without feeling overwhelmed)
+  - Quality of communication, effective conversations
+    - connect Djangonauts with larger parts of community
+    - Discord
+  - Celebration!
+  - Check Ins
+    - weekly check-ins bw Navigators <> Djangonauts
+    - bi-weekly check-ins between Captains <> Djangonauts
+  - What does it take to be a Djangonaut
+    - write, code, give feedback, comment on threads, attend events, organize, speak
+- Flight Crew
+  - Navigators are mentors
+  - Captains give encouragement and support
+  - apply to be a navigator!
+- Django Software Foundation provided grant
+- new program starts Jan 15th, goes on for 8 weeks
+- success
+  - see success when Djangonaut becomes Navigator
+  - need sustainability/retention for these new Django core devs
+  - need for another program? maybe! good problem to have

@@ -8,3 +8,4 @@
 | [Keynote: Finding Purpose in Open Source Through Community Building](notes/finding-purpose-in-os.md) | Abigail Mesrenyame Dogbe | [🔗](https://2023.djangocon.us/talks/keynote-finding-purpose-in-open-source-through-community-building/) |
 | [Using database triggers to reliably track model history](notes/using-db-triggers.md) | Wes Kendall & Maxwell Muoto | [🔗](https://2023.djangocon.us/talks/using-database-triggers-to-reliably-track-model-history/) |
 | [Swiss Army Django: Small Footprint ETL](notes/swiss-army-django.md) | Noah Kantrowitz | [🔗](https://2023.djangocon.us/talks/swiss-army-django-small-footprint-etl/) |
+| [Navigating Django's Future: Djangonaut Space](notes/djangonaut-space.md) | Rachell Calhoun & Dawn Wages | [🔗](https://2023.djangocon.us/talks/navigating-djangos-future-djangonaut-space/) |
